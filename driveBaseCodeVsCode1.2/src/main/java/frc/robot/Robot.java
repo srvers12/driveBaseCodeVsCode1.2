@@ -1,0 +1,119 @@
+package frc.robot;
+
+
+import frc.robot.oi.DriveTeleopBase;
+import frc.robot.oi.DriverIF;
+//import org.usfirst.frc.team2228.robot.sensors.AngleIF;
+import frc.robot.subsystems.drvbase.SRXDriveBase;
+import frc.robot.subsystems.drvbase.SRXDriveBaseCfg;
+import frc.robot.subsystems.drvbase.MotionProfileIF;
+
+import frc.robot.test.SRXDriveBaseTest;
+import frc.robot.util.DebugLogger;
+
+
+import edu.wpi.first.wpilibj.TimedRobot;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+/**
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to each mode, as described in the IterativeRobot
+ * documentation. If you change the name of this class or the package after
+ * creating this project, you must also update the manifest file in the resource
+ * directory.
+ */
+public class Robot extends TimedRobot {
+	
+	// define object instances
+	private SRXDriveBase driveBase;
+	private SRXDriveBaseTest testDriveBase;
+	private DriverIF driverIF;
+	//private AngleIF angleIF;
+	private MotionProfileIF motionProfileIF;
+	private DriveTeleopBase driveTeleopBase;
+	private SRXDriveBaseCfg driveBaseCfg;
+	private DebugLogger logger;
+	private RobotMap robotMap;
+
+	private boolean isConsoleDataEnabled = false;
+	private String lastMsgString = " ";
+
+	
+	// This function is run when the robot is first started up: 
+	// 1) create object instances
+	@Override
+	public void robotInit() {
+
+		// Create object instances
+		logger = new DebugLogger();
+		driverIF = new DriverIF();
+		//angleIF = new AngleIF();
+		robotMap = new RobotMap();
+		
+		driveBase = new SRXDriveBase(robotMap, logger);
+		driveBaseCfg = new SRXDriveBaseCfg();
+		motionProfileIF = new MotionProfileIF(driveBase);
+
+		driveTeleopBase = new DriveTeleopBase(driverIF, driveBase, logger);
+		testDriveBase = new SRXDriveBaseTest(driveBase, logger);
+		
+	}
+
+	
+	@Override
+	public void autonomousInit() {
+		// todo - correct drivebase for init
+		// public void init(boolean _isConsoleEnabled, boolean _isDataLoggingEnabled)
+		//driveBase.init(false, false);
+		motionProfileIF.init();
+	}
+
+	
+	// This function is called periodically during autonomous
+	@Override
+	public void autonomousPeriodic() {
+		
+	}
+
+	@Override
+	public void teleopInit() {
+		// public void init(boolean _isConsoleEnabled, boolean _isLoggingEnabled)
+		driveBase.init(false, false);
+
+		// public void init(boolean _isConsoleDataEnabled, boolean _isTestJoyStickEnabled)
+		driveTeleopBase.init(false, false);
+
+	}
+	
+	// This function is called periodically during operator control
+	@Override
+	public void teleopPeriodic() {
+		driveTeleopBase.Periodic();	
+	}
+	
+	
+	// This function is called once during test mode
+	@Override
+	public void testInit() {
+
+		//public void init(boolean _isConsoleEnabled)
+		testDriveBase.init(false);
+	}
+	
+	
+	// This function is called periodically during test mode
+	@Override
+	public void testPeriodic() {
+		testDriveBase.testMethodSelection();
+	}
+	
+	private void msg(String _msgString){
+		if (isConsoleDataEnabled){
+			if (_msgString != lastMsgString){
+				System.out.println(_msgString);
+				lastMsgString = _msgString;
+			}
+		}
+	}			
+}
+
