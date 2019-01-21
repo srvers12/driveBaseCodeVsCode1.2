@@ -24,9 +24,9 @@ public class MotionProfileIF {
 			isSRXMotionProfileActive = true;
 		} else {
 			//public boolean SRXProfileMove(double[][] ProfileRight, double[][] ProfileLelft, int totalPointNum)
-			if(!driveBase.SRXProfileMove(profileDataRight.PointsR, 
-										profileDataRight.PointsR, 
-										profileDataRight.kNumPoints)){
+			if(!driveBase.SRXProfileMove(profileRight.PointsR, 
+										profileLeft.PointsR, 
+										profileRight.kNumPoints)){
 				isSRXMotionProfileActive = false;
 			};
 		}

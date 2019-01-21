@@ -1,6 +1,5 @@
 package frc.robot.oi;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class DriverIF {
 

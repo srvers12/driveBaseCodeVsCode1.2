@@ -3,7 +3,6 @@ package frc.robot.oi;
 import frc.robot.subsystems.drvbase.SRXDriveBase;
 import frc.robot.util.DebugLogger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // REVISION LEVEL:
 // 181218 - cleaning up code
@@ -118,8 +117,8 @@ public class DriveTeleopBase {
 	public void init(boolean _isConsoleDataEnabled, boolean _isTestJoyStickEnabled){
 
 		// Set class program switches
-		isTeleopConsoleDataEnabled = _isConsoleDataEnabled? true : false;
-		isTestJoyStickEnabled = _isTestJoyStickEnabled? true : false;
+		isTeleopConsoleDataEnabled = _isConsoleDataEnabled;
+		isTestJoyStickEnabled = _isTestJoyStickEnabled;
 		isWheelTurnActive = false; 
 	}
 		

@@ -31,7 +31,6 @@ public class Robot extends TimedRobot {
 	//private AngleIF angleIF;
 	private MotionProfileIF motionProfileIF;
 	private DriveTeleopBase driveTeleopBase;
-	private SRXDriveBaseCfg driveBaseCfg;
 	private DebugLogger logger;
 	private RobotMap robotMap;
 
@@ -51,7 +50,6 @@ public class Robot extends TimedRobot {
 		robotMap = new RobotMap();
 		
 		driveBase = new SRXDriveBase(robotMap, logger);
-		driveBaseCfg = new SRXDriveBaseCfg();
 		motionProfileIF = new MotionProfileIF(driveBase);
 
 		driveTeleopBase = new DriveTeleopBase(driverIF, driveBase, logger);
