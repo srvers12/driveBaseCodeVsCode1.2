@@ -15,7 +15,7 @@ package frc.robot.subsystems.drvbase;
 // ===================================
 // SET COMMANDS
 // ===================================
-// public void init()
+// public void init(boolean _isConsoleEnabled, boolean _isDataLoggingEnabled)
 
 // public void setEnableConsoleData(boolean _consoleData)
 // public void setMecanumShiftEnable(boolean _mecanumShiftState)
@@ -479,7 +479,8 @@ public class SRXDriveBase {
 	public void setMecanumShiftSidewaysEnable(boolean _mecanumShiftState){
 		isMecanumShiftEnabled = _mecanumShiftState;
 	}
-	public void init() {
+	public void init(boolean _isConsoleEnabled, boolean _isDataLoggingEnabled) {
+		isConsoleDataEnabled = _isConsoleEnabled;
 		// Clear SRXDriveBase program control flags
 		clearSRXDrvBasePrgFlgs();
 		
@@ -487,7 +488,7 @@ public class SRXDriveBase {
 		loadSmartDashBoardParmeters();
 		
 		// Stop motors and clear position counters
-		StopMotors();
+		stopMotors();
 		setDriveBaseRamp(0);
 		setRightSensorPositionToZero();
 		setLeftSensorPositionToZero();
