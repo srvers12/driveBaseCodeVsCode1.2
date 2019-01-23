@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 // REVSISION LEVEL:
+// 190123 - drivebase rev
 // 181218 -  added set rumble
 
 public class XboxIF {

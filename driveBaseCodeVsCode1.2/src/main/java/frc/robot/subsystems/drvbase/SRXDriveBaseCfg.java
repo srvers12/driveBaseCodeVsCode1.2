@@ -1,5 +1,8 @@
 package frc.robot.subsystems.drvbase;
 
+// REVISION LEVEL:
+// 190123 - drivebase rev
+
 public class SRXDriveBaseCfg {
 		// Revisions:
 		// 181106 - removed drivebase choose switch

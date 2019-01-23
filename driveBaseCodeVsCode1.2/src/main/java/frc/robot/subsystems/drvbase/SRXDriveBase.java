@@ -5,6 +5,7 @@ package frc.robot.subsystems.drvbase;
 //  Team 2228
 
 // REVISION LEVEL:
+// 190123 - drivebase rev
 // 181218 - cleaning up code
 // 181106 - removed test methods
 // 181102 - updated header, added SRX motion profile
@@ -126,20 +127,20 @@ import frc.robot.RobotMap;
 import frc.robot.util.DebugLogger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.motorcontrol.Faults;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
+// import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+// import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+// import com.ctre.phoenix.motorcontrol.Faults;
+// import com.ctre.phoenix.motorcontrol.NeutralMode;
+// import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 
 import com.ctre.phoenix.motorcontrol.can.*;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
+import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motion.*;
-import com.ctre.phoenix.motion.SetValueMotionProfile;
-import com.ctre.phoenix.motion.TrajectoryPoint;
 
-import edu.wpi.first.wpilibj.DriverStation;
+//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+//import com.ctre.phoenix.motion.TrajectoryPoint;
+
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -166,6 +167,7 @@ public class SRXDriveBase {
 	//  keep one copy.	
 	private MotionProfileStatus SRXProfileStatusRight = new MotionProfileStatus();
 	private MotionProfileStatus SRXProfileStatusLeft = new MotionProfileStatus();
+	private SetValueMotionProfile _setValue = SetValueMotionProfile.Disable;
 
 	private double[][] pointsRight;
 	private double[][] pointsLeft;
@@ -938,10 +940,11 @@ public class SRXDriveBase {
 		profileNumPoints = _totalPointNum;
 
 		if(!isSRXProfileMoveActive) {
-			// todo - fix compile error
+			
 			// Disable motion profile while setting up a profile move
-			//rightMasterMtr.set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
-			//leftMasterMtr.set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
+			_setValue = SetValueMotionProfile.Disable;
+			rightMasterMtr.set(ControlMode.MotionProfile, _setValue.value);
+			leftMasterMtr.set(ControlMode.MotionProfile, _setValue.value);
 
 			//Clear underrun fault 
 			rightMasterMtr.clearMotionProfileHasUnderrun(0);
@@ -1009,9 +1012,10 @@ public class SRXDriveBase {
 				rightMasterMtr.clearMotionProfileHasUnderrun(0);
 				leftMasterMtr.clearMotionProfileHasUnderrun(0);
 
-				// todo - fix compile error
-				//rightMasterMtr.set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
-				//leftMasterMtr.set(ControlMode.MotionProfile, SetValueMotionProfile.Disable);
+				
+				_setValue = SetValueMotionProfile.Disable;
+				rightMasterMtr.set(ControlMode.MotionProfile, _setValue.value);
+				leftMasterMtr.set(ControlMode.MotionProfile, _setValue.value);
 
 				pushAPI2SRXThread.stop();
 				
@@ -1038,10 +1042,10 @@ public class SRXDriveBase {
 						// fix compile error
 						//if (SRXProfileStatusRight.TopBufferCnt == 0){
 
-							// todo - fix compile error
 							// Start motion profile
-							//rightMasterMtr.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable);
-							//leftMasterMtr.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable);
+							_setValue = SetValueMotionProfile.Enable;
+							rightMasterMtr.set(ControlMode.MotionProfile, _setValue.value);
+							leftMasterMtr.set(ControlMode.MotionProfile, _setValue.value);
 
 							// Wait til SRX profile buffer is a low content count then load more trajectory points
 							SRXProfileState = 2;
@@ -1079,9 +1083,10 @@ public class SRXDriveBase {
 		
 						// Check if profile is done
 						if (SRXProfileStatusRight.activePointValid && SRXProfileStatusRight.isLast) {
-							// todo - fix compile error
-							//rightMasterMtr.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold);
-							//leftMasterMtr.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold);
+							
+							_setValue = SetValueMotionProfile.Hold;
+							rightMasterMtr.set(ControlMode.MotionProfile, _setValue.value);
+							leftMasterMtr.set(ControlMode.MotionProfile, _setValue.value);
 
 							pushAPI2SRXThread.stop();
 							
