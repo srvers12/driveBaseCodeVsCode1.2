@@ -1,8 +1,6 @@
 package frc.robot.oi;
 
 import frc.robot.subsystems.drvbase.SRXDriveBase;
-import frc.robot.util.DebugLogger;
-
 
 // REVISION LEVEL:
 // 181218 - cleaning up code
@@ -16,21 +14,20 @@ public class DriveTeleopBase {
 	// 180831 -  updated normalize, 
 	
 	// ===============================
-	// SET COMMANDS
-	// public void init(boolean _isConsoleDataEnabled, boolean _isTestJoyStickEnabled)
-	// public void Periodic() 
-	// public void setMaxThrottlePower(double _kMaxThrottlePowerLimitLevel)
-	// ===============================
+	// SET METHODS
 	// OBJECT SET/GET COMMANDS
 	// driveBase.setThrottleTurn(throttleAxis, turnAxis)
+	// public void setMaxThrottlePower(double _kMaxThrottlePowerLimitLevel)
 	// driveBase.setMecanumShiftSidewasysEnable(true/false)
+	// ==================================
+	// GET METHODS
 	// driverIF.getMecanumShiftSidewasysBtn()
 	// driverIF.getThrottleAxis()
 	// driverIF.getTurnAxis()
 	// driverIF.getWheelAxis()
 	//================================
 	// OBJECT MEHTODS
-	// private void   setSmartDashBoardParmeters()
+	// public void setMaxThrottlePower(double _kMaxThrottlePowerLimitLevel)
 	// private double applyTurnProfileFilter(double _turnAxis)
 	// private double applySineFunction(double fTurn)
 	// private double applyThrottleProfileFilter(double _throttleAxis)
@@ -45,7 +42,6 @@ public class DriveTeleopBase {
 	
 	private DriverIF driverIF;
 	private SRXDriveBase driveBase;
-	private DebugLogger log;
 
 	//================================
 	// CONFIGURATION SWITCHES
@@ -105,11 +101,9 @@ public class DriveTeleopBase {
 	//==============================================
 	// TELEOPCONTROLLER CONSTRUCTOR
 	public DriveTeleopBase(DriverIF     _driverIF, 
-						   SRXDriveBase _driveBase,
-						   DebugLogger  _debuglogger) {
+						   SRXDriveBase _driveBase) {
 		driverIF = _driverIF;
 		driveBase = _driveBase;
-		log = _debuglogger;
 	}
 	
 	//==========================================
@@ -296,14 +290,14 @@ public class DriveTeleopBase {
 		}
 		return num;
 	}
-	
+	// todo - not used
 	private double ApplyJoyDeadBand(double num){
 		if (Math.abs(num) <= kJoyStickDeadBand) {
 			num = 0;
 		}
 		return num;
 	}
-	
+	// todo -  not used
 	private void msg(String _msgString){
 		if (isTeleopConsoleDataEnabled){
 			if (_msgString != lastMsgString){

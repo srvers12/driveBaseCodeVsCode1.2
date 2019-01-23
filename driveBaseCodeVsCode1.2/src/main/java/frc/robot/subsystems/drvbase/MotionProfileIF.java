@@ -6,7 +6,7 @@ import frc.robot.subsystems.drvbase.profile.DriveStraightLine;
 public class MotionProfileIF {
 	private SRXDriveBase driveBase;
 	private boolean isSRXMotionProfileActive = false;
-	
+	private DriveStraightLine profileData;
 	// Constructor
 	public MotionProfileIF(SRXDriveBase _driveBase){
 		driveBase = _driveBase;
@@ -20,13 +20,13 @@ public class MotionProfileIF {
 	public boolean DriveStraight() {
 		if(!isSRXMotionProfileActive){
 			// Create and instance of the DriveStraightLine class 
-			DriveStraightLine profileDataRight = new DriveStraightLine();
+			DriveStraightLine profileData = new DriveStraightLine();
 			isSRXMotionProfileActive = true;
 		} else {
-			//public boolean SRXProfileMove(double[][] ProfileRight, double[][] ProfileLelft, int totalPointNum)
-			if(!driveBase.SRXProfileMove(profileRight.PointsR, 
-										profileLeft.PointsR, 
-										profileRight.kNumPoints)){
+			//public boolean SRXProfileMove(double[][] _profileRight, double[][] _profileLeft, int _totalPointNum)
+			if(!driveBase.SRXProfileMove(profileData.PointsRight, 
+										 profileData.PointsLeft, 
+										 profileData.kNumPoints)){
 				isSRXMotionProfileActive = false;
 			};
 		}

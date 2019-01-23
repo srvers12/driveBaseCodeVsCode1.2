@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
 		driveBase = new SRXDriveBase(robotMap, logger);
 		motionProfileIF = new MotionProfileIF(driveBase);
 
-		driveTeleopBase = new DriveTeleopBase(driverIF, driveBase, logger);
+		driveTeleopBase = new DriveTeleopBase(driverIF, driveBase);
 		testDriveBase = new SRXDriveBaseTest(driveBase, logger);
 		
 	}

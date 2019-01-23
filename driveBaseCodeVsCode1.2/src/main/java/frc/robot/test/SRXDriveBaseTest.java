@@ -133,7 +133,8 @@ public class SRXDriveBaseTest {
 			case 4:
 				if(SmartDashboard.getBoolean("drvBTstBtn_MoveSideways:",false)){
 					// public boolean move(double _MoveDistanceIn, double _MovePwrLevel, boolean _MoveSideways){
-					driveBase.move(30, .3, true);
+					// todo - finish move in drivebase
+					//driveBase.move(30, .3, true);
 				} else {
 					testSelectionState = 5;
 				}
